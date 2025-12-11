@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SkillConnect</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+</head>
+
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="SkillConnect" height="50">
+    </a>
+
+    <ul class="nav-links">
+
+        <li><a href="/">Home</a></li>
+        <li><a href="/tasks/">Tasks</a></li>
+
+        {% if request.user.is_authenticated %}
+            <li><a href="/dashboard/">Dashboard</a></li>
+
+            {% if request.user.userprofile.role == 'poster' %}
+                <li><a href="/tasks/create/">Create Task</a></li>
+            {% endif %}
+
+            <li><a href="/accounts/logout/">Logout</a></li>
+
+        {% else %}
+            <li><a href="/accounts/login/">Login</a></li>
+            <li><a href="/accounts/signup/">Sign Up</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

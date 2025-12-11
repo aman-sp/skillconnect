@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Your Applications</h2>
+
+{% if applications %}
+    {% for app in applications %}
+        <div style="background:#fff; padding:15px; margin-bottom:15px; border-radius:6px;">
+            <h3>{{ app.task.title }}</h3>
+            <p><strong>Cover Letter:</strong> {{ app.cover_letter|truncatewords:25 }}</p>
+
+            {% if app.sample_file %}
+                <p><a href="{{ app.sample_file.url }}" target="_blank">Download Sample File</a></p>
+            {% endif %}
+
+            <p>Applied on: {{ app.applied_at }}</p>
+            <a href="/tasks/{{ app.task.id }}/">View Task</a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>You have not applied to any tasks yet.</p>
+{% endif %}
+
+{% endblock %}

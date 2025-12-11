@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Apply for: {{ task.title }}</h2>
+
+<div style="background:#fff; padding:20px; border-radius:6px; width:60%;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Submit Application</button>
+    </form>
+</div>
+
+{% endblock %}

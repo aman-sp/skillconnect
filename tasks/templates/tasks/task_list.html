@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Available Tasks</h2>
+
+{% for task in page_obj %}
+    <div style="padding: 15px; margin-bottom: 15px; background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description|truncatewords:25 }}</p>
+        <p><strong>Budget:</strong> ₹{{ task.budget }}</p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <a href="/tasks/{{ task.id }}/">View Details</a>
+    </div>
+{% empty %}
+    <p>No tasks available yet.</p>
+{% endfor %}
+
+<!-- Pagination -->
+<div style="margin-top: 20px;">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+</div>
+
+{% endblock %}

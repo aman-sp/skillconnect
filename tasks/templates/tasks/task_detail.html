@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>{{ task.title }}</h2>
+
+<div style="background:#fff; padding:20px; border-radius:6px; margin-bottom:20px;">
+    <p>{{ task.description }}</p>
+    <p><strong>Category:</strong> {{ task.category }}</p>
+    <p><strong>Budget:</strong> ₹{{ task.budget }}</p>
+    <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+    <p><strong>Posted By:</strong> {{ task.posted_by.username }}</p>
+</div>
+
+<!-- Apply Button for Freelancers Only -->
+{% if request.user.is_authenticated %}
+    {% if request.user.userprofile.role == 'freelancer' %}
+        <a href="/tasks/{{ task.id }}/apply/">Apply for this Task</a>
+    {% endif %}
+{% else %}
+    <p><a href="/accounts/login/">Login</a> to apply.</p>
+{% endif %}
+
+<!-- Show Applicants only to Poster -->
+{% if request.user == task.posted_by %}
+    <h3>Applicants</h3>
+
+    {% for app in applications %}
+        <div style="background:#fff; padding:15px; border-radius:6px; margin-bottom:10px;">
+            <p><strong>{{ app.freelancer.username }}</strong></p>
+            <p>{{ app.cover_letter }}</p>
+
+            {% if app.sample_file %}
+                <p><a href="{{ app.sample_file.url }}" target="_blank">Download Sample File</a></p>
+            {% endif %}
+
+            <p>Applied on: {{ app.applied_at }}</p>
+        </div>
+    {% empty %}
+        <p>No applications yet.</p>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
