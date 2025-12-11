@@ -1,0 +1,15 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+
+# Django DB
+db.sqlite3
+
+# Virtual environment
+venv/
+
+# Static files generated for production
+staticfiles/
+
+# Media uploads
+media/
