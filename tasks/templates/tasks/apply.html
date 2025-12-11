@@ -1,16 +1,20 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
 
-<h2>Apply for: {{ task.title }}</h2>
+            <h3 class="mb-3">Apply to: {{ task.title }}</h3>
 
-<div style="background:#fff; padding:20px; border-radius:6px; width:60%;">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
 
-        <button type="submit">Submit Application</button>
-    </form>
+                <button class="btn btn-primary mt-3" type="submit">Submit Application</button>
+            </form>
+
+        </div>
+    </div>
 </div>
-
 {% endblock %}

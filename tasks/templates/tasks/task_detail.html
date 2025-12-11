@@ -2,43 +2,32 @@
 
 {% block content %}
 
-<h2>{{ task.title }}</h2>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
 
-<div style="background:#fff; padding:20px; border-radius:6px; margin-bottom:20px;">
-    <p>{{ task.description }}</p>
-    <p><strong>Category:</strong> {{ task.category }}</p>
-    <p><strong>Budget:</strong> ₹{{ task.budget }}</p>
-    <p><strong>Deadline:</strong> {{ task.deadline }}</p>
-    <p><strong>Posted By:</strong> {{ task.posted_by.username }}</p>
-</div>
+            <h2 class="fw-bold">{{ task.title }}</h2>
+            <p class="text-muted mb-3">{{ task.category|title }}</p>
 
-<!-- Apply Button for Freelancers Only -->
-{% if request.user.is_authenticated %}
-    {% if request.user.userprofile.role == 'freelancer' %}
-        <a href="/tasks/{{ task.id }}/apply/">Apply for this Task</a>
-    {% endif %}
-{% else %}
-    <p><a href="/accounts/login/">Login</a> to apply.</p>
-{% endif %}
+            <p>{{ task.description }}</p>
 
-<!-- Show Applicants only to Poster -->
-{% if request.user == task.posted_by %}
-    <h3>Applicants</h3>
+            <hr>
 
-    {% for app in applications %}
-        <div style="background:#fff; padding:15px; border-radius:6px; margin-bottom:10px;">
-            <p><strong>{{ app.freelancer.username }}</strong></p>
-            <p>{{ app.cover_letter }}</p>
+            <p><strong>Budget:</strong> ₹{{ task.budget }}</p>
+            <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+            <p><strong>Posted By:</strong> {{ task.posted_by.username }}</p>
 
-            {% if app.sample_file %}
-                <p><a href="{{ app.sample_file.url }}" target="_blank">Download Sample File</a></p>
+            <hr>
+
+            {% if request.user.is_authenticated %}
+                {% if request.user.userprofile.role == 'freelancer' %}
+                    <a href="/tasks/{{ task.id }}/apply/" class="btn btn-primary">Apply for this Task</a>
+                {% endif %}
+            {% else %}
+                <a href="/accounts/login/" class="btn btn-outline-primary">Login to Apply</a>
             {% endif %}
-
-            <p>Applied on: {{ app.applied_at }}</p>
         </div>
-    {% empty %}
-        <p>No applications yet.</p>
-    {% endfor %}
-{% endif %}
+    </div>
+</div>
 
 {% endblock %}

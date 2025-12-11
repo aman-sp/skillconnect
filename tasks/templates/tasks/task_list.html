@@ -1,31 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Available Tasks</h2>
+<h2 class="mb-4">Available Tasks</h2>
 
-{% for task in page_obj %}
-    <div style="padding: 15px; margin-bottom: 15px; background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <h3>{{ task.title }}</h3>
-        <p>{{ task.description|truncatewords:25 }}</p>
-        <p><strong>Budget:</strong> ₹{{ task.budget }}</p>
-        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
-        <a href="/tasks/{{ task.id }}/">View Details</a>
+<div class="row">
+    {% for task in page_obj %}
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ task.title }}</h5>
+                <p class="card-text text-muted">{{ task.description|truncatewords:15 }}</p>
+                <p class="fw-bold">₹ {{ task.budget }}</p>
+                <a href="/tasks/{{ task.id }}/" class="btn btn-primary btn-sm">View Details</a>
+            </div>
+        </div>
     </div>
-{% empty %}
-    <p>No tasks available yet.</p>
-{% endfor %}
+    {% endfor %}
+</div>
 
 <!-- Pagination -->
-<div style="margin-top: 20px;">
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
+<div class="d-flex justify-content-center mt-4">
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
 
-    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
 
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-    {% endif %}
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 </div>
 
 {% endblock %}

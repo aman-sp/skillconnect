@@ -1,15 +1,96 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-7">
+    <div class="card shadow-sm mt-4">
+      <div class="card-body">
+        <h3 class="card-title mb-3 text-center">Create your account</h3>
 
-<h2>Create Account</h2>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+        <form method="post" enctype="multipart/form-data" novalidate>
+          {% csrf_token %}
 
-    {{ form.as_p }}
-    {{ profile_form.as_p }}
+          <div class="mb-3">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {% if form.username.errors %}
+              <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+            {% endif %}
+          </div>
 
-    <button type="submit">Sign Up</button>
-</form>
+          <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            {% if form.email.errors %}
+              <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+            {% endif %}
+          </div>
 
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.password.label_tag }}
+              {{ form.password }}
+              {% if form.password.errors %}
+                <div class="text-danger small mt-1">{{ form.password.errors }}</div>
+              {% endif %}
+            </div>
+
+            <div class="col-md-6 mb-3">
+              {{ form.confirm_password.label_tag }}
+              {{ form.confirm_password }}
+              {% if form.confirm_password.errors %}
+                <div class="text-danger small mt-1">{{ form.confirm_password.errors }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <hr>
+
+          <h6 class="mb-3">Profile</h6>
+
+          <div class="mb-3">
+            {{ profile_form.role.label_tag }}
+            {{ profile_form.role }}
+            {% if profile_form.role.errors %}
+              <div class="text-danger small mt-1">{{ profile_form.role.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            {{ profile_form.profile_image.label_tag }}
+            {{ profile_form.profile_image }}
+            {% if profile_form.profile_image.errors %}
+              <div class="text-danger small mt-1">{{ profile_form.profile_image.errors }}</div>
+            {% endif %}
+            <div class="form-text">Optional — upload a profile photo (png/jpg).</div>
+          </div>
+
+          <div class="d-grid gap-2 mt-3">
+            <button type="submit" class="btn btn-success">Sign Up</button>
+          </div>
+        </form>
+
+        <hr class="my-4">
+
+        <div class="text-center">
+          <small class="text-muted">Already have an account?</small>
+          <div class="mt-2">
+            <a href="/accounts/login/" class="btn btn-outline-primary btn-sm">Login</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
