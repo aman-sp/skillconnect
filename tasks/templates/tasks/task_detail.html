@@ -1,33 +1,46 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
-<div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
+<link rel="stylesheet" href="{% static 'css/tasks.css' %}">
 
-            <h2 class="fw-bold">{{ task.title }}</h2>
-            <p class="text-muted mb-3">{{ task.category|title }}</p>
+<div class="task-detail-container">
 
-            <p>{{ task.description }}</p>
+    <!-- CATEGORY BADGE -->
+    <span class="category-badge {{ task.category }}">{{ task.get_category_display }}</span>
 
-            <hr>
+    <!-- TITLE -->
+    <h1 class="task-title">{{ task.title }}</h1>
 
-            <p><strong>Budget:</strong> ₹{{ task.budget }}</p>
-            <p><strong>Deadline:</strong> {{ task.deadline }}</p>
-            <p><strong>Posted By:</strong> {{ task.posted_by.username }}</p>
+    <!-- META INFO -->
+    <div class="task-info">
+        <div class="budget-box">
+            <span>Budget</span>
+            <h2>₹{{ task.budget }}</h2>
+        </div>
 
-            <hr>
-
-            {% if request.user.is_authenticated %}
-                {% if request.user.userprofile.role == 'freelancer' %}
-                    <a href="/tasks/{{ task.id }}/apply/" class="btn btn-primary">Apply for this Task</a>
-                {% endif %}
-            {% else %}
-                <a href="/accounts/login/" class="btn btn-outline-primary">Login to Apply</a>
-            {% endif %}
+        <div class="deadline-box">
+            <span>Deadline</span>
+            <p>⏳ {{ task.deadline }}</p>
         </div>
     </div>
+
+    <!-- DESCRIPTION -->
+    <div class="task-description">
+        <h3>Description</h3>
+        <p>{{ task.description }}</p>
+    </div>
+
+    <!-- APPLY BUTTON -->
+    {% if user.is_authenticated %}
+        <a href="/tasks/{{ task.id }}/apply/" class="apply-btn">Apply for this Task →</a>
+    {% else %}
+        <p class="login-note">
+            <a href="/accounts/login/">Login</a> to apply for this task.
+        </p>
+    {% endif %}
+
 </div>
 
 {% endblock %}

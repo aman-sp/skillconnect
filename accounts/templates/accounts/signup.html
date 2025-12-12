@@ -1,96 +1,56 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
-<div class="row justify-content-center">
-  <div class="col-md-8 col-lg-7">
-    <div class="card shadow-sm mt-4">
-      <div class="card-body">
-        <h3 class="card-title mb-3 text-center">Create your account</h3>
 
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-              {{ message }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          {% endfor %}
-        {% endif %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
 
-        <form method="post" enctype="multipart/form-data" novalidate>
-          {% csrf_token %}
+<div class="auth-container">
+    <div class="auth-card">
 
-          <div class="mb-3">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            {% if form.username.errors %}
-              <div class="text-danger small mt-1">{{ form.username.errors }}</div>
-            {% endif %}
-          </div>
+        <h2>Create Account</h2>
+        <p class="subtitle">Join SkillConnect today</p>
 
-          <div class="mb-3">
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {% if form.email.errors %}
-              <div class="text-danger small mt-1">{{ form.email.errors }}</div>
-            {% endif %}
-          </div>
+        <form method="POST">
+            {% csrf_token %}
 
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              {{ form.password.label_tag }}
-              {{ form.password }}
-              {% if form.password.errors %}
-                <div class="text-danger small mt-1">{{ form.password.errors }}</div>
-              {% endif %}
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
             </div>
 
-            <div class="col-md-6 mb-3">
-              {{ form.confirm_password.label_tag }}
-              {{ form.confirm_password }}
-              {% if form.confirm_password.errors %}
-                <div class="text-danger small mt-1">{{ form.confirm_password.errors }}</div>
-              {% endif %}
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
             </div>
-          </div>
 
-          <hr>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" name="password1" required>
+            </div>
 
-          <h6 class="mb-3">Profile</h6>
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" name="password2" required>
+            </div>
 
-          <div class="mb-3">
-            {{ profile_form.role.label_tag }}
-            {{ profile_form.role }}
-            {% if profile_form.role.errors %}
-              <div class="text-danger small mt-1">{{ profile_form.role.errors }}</div>
-            {% endif %}
-          </div>
+            <div class="input-group">
+                <label>Select Role</label>
+                <select name="role" required>
+                    <option value="">Choose...</option>
+                    <option value="poster">Task Poster</option>
+                    <option value="freelancer">Freelancer</option>
+                </select>
+            </div>
 
-          <div class="mb-3">
-            {{ profile_form.profile_image.label_tag }}
-            {{ profile_form.profile_image }}
-            {% if profile_form.profile_image.errors %}
-              <div class="text-danger small mt-1">{{ profile_form.profile_image.errors }}</div>
-            {% endif %}
-            <div class="form-text">Optional — upload a profile photo (png/jpg).</div>
-          </div>
-
-          <div class="d-grid gap-2 mt-3">
-            <button type="submit" class="btn btn-success">Sign Up</button>
-          </div>
+            <button type="submit" class="btn-primary full-width">Create Account</button>
         </form>
 
-        <hr class="my-4">
+        <p class="switch-text">
+            Already have an account? <a href="/accounts/login/">Login</a>
+        </p>
 
-        <div class="text-center">
-          <small class="text-muted">Already have an account?</small>
-          <div class="mt-2">
-            <a href="/accounts/login/" class="btn btn-outline-primary btn-sm">Login</a>
-          </div>
-        </div>
-
-      </div>
     </div>
-  </div>
 </div>
+
 {% endblock %}

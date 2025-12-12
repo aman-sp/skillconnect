@@ -1,6 +1,54 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h1>Welcome to SkillConnect</h1>
-<p>Your platform to hire skills and get work done.</p>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-text">
+        <h1>Hire Talent. Get Tasks Done.</h1>
+        <p>SkillConnect brings freelancers and clients together effortlessly — hire experts or complete tasks with ease.</p>
+
+        <div class="hero-buttons">
+            <a href="/tasks/" class="btn-primary hero-btn">Browse Tasks</a>
+            {% if not user.is_authenticated %}
+                <a href="/accounts/signup/" class="btn-secondary hero-btn">Join Now</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static 'images/hero-illustration.png' %}" alt="Hero Illustration">
+    </div>
+</section>
+
+
+
+<!-- FEATURES SECTION -->
+<section class="features">
+    <h2 class="section-title">Why Choose SkillConnect?</h2>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="icon">📌</div>
+            <h3>Post Tasks Easily</h3>
+            <p>Create and manage tasks quickly with a user-friendly interface.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">💼</div>
+            <h3>Find Skilled Talent</h3>
+            <p>Browse freelancers based on skills, categories, and experience.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🔒</div>
+            <h3>Secure & Reliable</h3>
+            <p>Your workflow stays safe with verified profiles and transparent interactions.</p>
+        </div>
+
+    </div>
+</section>
+
 {% endblock %}

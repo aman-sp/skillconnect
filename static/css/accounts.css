@@ -1,0 +1,93 @@
+/* AUTH CONTAINER */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+}
+
+.auth-card {
+    background: var(--card);
+    padding: 40px;
+    border-radius: 16px;
+    width: 400px;
+    box-shadow: 0 4px 18px var(--shadow);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.6s ease;
+}
+
+.auth-card h2 {
+    margin: 0;
+    font-size: 2rem;
+    text-align: center;
+    color: var(--text);
+}
+
+.subtitle {
+    text-align: center;
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
+
+/* INPUTS */
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1.5px solid #cccccc60;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* FULL WIDTH BUTTON */
+.full-width {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.full-width:hover {
+    opacity: 0.9;
+}
+
+/* SWITCH TEXT */
+.switch-text {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.switch-text a {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

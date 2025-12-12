@@ -1,20 +1,35 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
 
-            <h3 class="mb-3">Apply to: {{ task.title }}</h3>
+<link rel="stylesheet" href="{% static 'css/apply.css' %}">
 
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
+<div class="apply-container">
+    <div class="apply-card">
 
-                <button class="btn btn-primary mt-3" type="submit">Submit Application</button>
-            </form>
+        <h2>Apply for Task</h2>
+        <p class="subtitle">{{ task.title }}</p>
 
-        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label>Cover Letter</label>
+                <textarea name="cover_letter" rows="5" required>{{ form.cover_letter.value }}</textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Upload Sample File (optional)</label>
+                <input type="file" name="sample_file">
+            </div>
+
+            <button type="submit" class="btn-primary full-width">Submit Application</button>
+        </form>
+
+        <p class="back-link"><a href="/tasks/{{ task.id }}/">← Back to Task</a></p>
+
     </div>
 </div>
+
 {% endblock %}

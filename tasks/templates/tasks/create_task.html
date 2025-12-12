@@ -1,19 +1,59 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="card shadow-sm">
-        <div class="card-body">
 
-            <h3 class="mb-3">Post a New Task</h3>
+<link rel="stylesheet" href="{% static 'css/create_task.css' %}">
 
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
+<div class="create-container">
+    <div class="create-card">
 
-                <button class="btn btn-success mt-3" type="submit">Create Task</button>
-            </form>
-        </div>
+        <h2>Create New Task</h2>
+        <p class="subtitle">Provide details so freelancers know what you need.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-group">
+                <label>Task Title</label>
+                <input type="text" name="title" value="{{ form.title.value }}" required>
+            </div>
+
+            <div class="input-group">
+                <label>Description</label>
+                <textarea name="description" rows="5" required>{{ form.description.value }}</textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Category</label>
+                <select name="category" required>
+                    <option value="">Choose category...</option>
+                    <option value="design" {% if form.category.value == "design" %}selected{% endif %}>Design</option>
+                    <option value="coding" {% if form.category.value == "coding" %}selected{% endif %}>Coding</option>
+                    <option value="editing" {% if form.category.value == "editing" %}selected{% endif %}>Video Editing</option>
+                    <option value="data" {% if form.category.value == "data" %}selected{% endif %}>Data Work</option>
+                    <option value="general" {% if form.category.value == "general" %}selected{% endif %}>General Task</option>
+                </select>
+            </div>
+
+            <div class="input-row">
+                <div class="input-group half">
+                    <label>Budget (₹)</label>
+                    <input type="number" step="0.01" name="budget" value="{{ form.budget.value }}" required>
+                </div>
+
+                <div class="input-group half">
+                    <label>Deadline</label>
+                    <input type="date" name="deadline" value="{{ form.deadline.value }}" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary full-width">Create Task</button>
+        </form>
+
+        <p class="back-link"><a href="/tasks/">← Back to Tasks</a></p>
+
     </div>
 </div>
+
 {% endblock %}

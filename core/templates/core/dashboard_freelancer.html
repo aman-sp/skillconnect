@@ -1,32 +1,50 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h2 class="mb-4">Your Applications</h2>
 
-{% if applications %}
-<div class="row">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<h2 class="dash-title">Freelancer Dashboard</h2>
+
+<!-- STAT CARDS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ total_applications }}</h3>
+        <p>Tasks Applied</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>{{ pending_applications }}</h3>
+        <p>Pending</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>{{ approved_applications }}</h3>
+        <p>Approved</p>
+    </div>
+</div>
+
+
+<!-- APPLICATION LIST -->
+<h3 class="section-title">Your Applications</h3>
+
+<div class="list-container">
     {% for app in applications %}
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
+        <div class="list-item">
+            <div>
+                <h4>{{ app.task.title }}</h4>
+                <span class="category-tag {{ app.task.category }}">{{ app.task.get_category_display }}</span>
+            </div>
 
-                <h5>{{ app.task.title }}</h5>
-                <p class="text-muted">{{ app.cover_letter|truncatewords:20 }}</p>
-
-                {% if app.sample_file %}
-                    <a href="{{ app.sample_file.url }}" target="_blank">Download sample</a><br>
-                {% endif %}
-
-                <p class="text-muted small mt-2">Applied: {{ app.applied_at }}</p>
-
-                <a href="/tasks/{{ app.task.id }}/" class="btn btn-primary btn-sm">View Task</a>
-
+            <div class="right-part">
+                <span class="date">Applied on: {{ app.applied_at|date:"d M Y" }}</span>
+                <a href="/tasks/{{ app.task.id }}/" class="btn-view">View</a>
             </div>
         </div>
-    </div>
+    {% empty %}
+        <p>You haven't applied to any tasks yet.</p>
     {% endfor %}
 </div>
-{% else %}
-<p>You have not applied to any tasks yet.</p>
-{% endif %}
+
 {% endblock %}

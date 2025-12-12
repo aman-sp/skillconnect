@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="profile-container">
+
+    <!-- PROFILE CARD -->
+    <div class="profile-header">
+
+        <img src="{{ user.userprofile.profile_image.url }}" 
+             class="profile-avatar" 
+             onerror="this.src='/static/images/default-avatar.png';">
+
+        <h2>{{ user.username }}</h2>
+
+        <span class="role-badge {{ user.userprofile.role }}">
+            {{ user.userprofile.role|title }}
+        </span>
+
+        <p class="email">{{ user.email }}</p>
+        <p class="joined">Member since: {{ user.date_joined|date:"d M Y" }}</p>
+
+    </div>
+
+
+    <!-- STATS CARDS -->
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>{{ tasks_posted }}</h3>
+            <p>Tasks Posted</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ tasks_applied }}</h3>
+            <p>Tasks Applied</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ total_activity }}</h3>
+            <p>Total Activity</p>
+        </div>
+
+    </div>
+
+
+    <!-- ACTION BUTTONS -->
+    <div class="action-buttons">
+        <a href="/accounts/edit/" class="btn-primary">Edit Profile</a>
+        <a href="/accounts/change-password/" class="btn-secondary">Change Password</a>
+    </div>
+
+</div>
+
+{% endblock %}

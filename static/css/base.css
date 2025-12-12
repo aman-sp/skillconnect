@@ -1,0 +1,97 @@
+/* Global Styles */
+html {
+    font-family: 'Poppins', sans-serif;
+    --bg: #ffffff;
+    --text: #222222;
+    --card: #f5f5f5;
+    --primary: #6c63ff;
+    --nav-bg: #ffffffd9;
+    --shadow: rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+/* DARK MODE VARIABLES */
+html[data-theme='dark'] {
+    --bg: #1a1a1a;
+    --text: #dddddd;
+    --card: #2a2a2a;
+    --nav-bg: #1f1f1fd9;
+    --shadow: rgba(255, 255, 255, 0.1);
+}
+
+/* Body */
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    color: var(--primary);
+}
+
+.brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Sign Up button */
+.btn-primary {
+    padding: 8px 14px;
+    background: var(--primary);
+    color: white !important;
+    border-radius: 6px;
+    margin-left: 15px;
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    opacity: 0.8;
+}
+
+/* Theme Toggle */
+.toggle-btn {
+    margin-left: 20px;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* MAIN CONTAINER */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--nav-bg);
+    margin-top: 40px;
+}

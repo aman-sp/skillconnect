@@ -1,28 +1,50 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h2 class="mb-4">Your Posted Tasks</h2>
 
-{% if task_data %}
-<div class="row">
-    {% for item in task_data %}
-    <div class="col-md-4 mb-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>{{ item.task.title }}</h5>
-                <p class="text-muted">{{ item.task.description|truncatewords:12 }}</p>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
-                <p><strong>Applicants:</strong> {{ item.applications }}</p>
+<h2 class="dash-title">Poster Dashboard</h2>
 
-                <a href="/tasks/{{ item.task.id }}/" class="btn btn-primary btn-sm">View Task</a>
+<!-- STAT CARDS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ total_tasks }}</h3>
+        <p>Total Tasks Posted</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>{{ active_tasks }}</h3>
+        <p>Active Tasks</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>{{ applications_received }}</h3>
+        <p>Applications Received</p>
+    </div>
+</div>
+
+
+<!-- TASK LIST -->
+<h3 class="section-title">Your Posted Tasks</h3>
+
+<div class="list-container">
+    {% for task in tasks %}
+        <div class="list-item">
+            <div>
+                <h4>{{ task.title }}</h4>
+                <span class="category-tag {{ task.category }}">{{ task.get_category_display }}</span>
+            </div>
+
+            <div class="right-part">
+                <span class="budget">₹{{ task.budget }}</span>
+                <a href="/tasks/{{ task.id }}/" class="btn-view">View</a>
             </div>
         </div>
-    </div>
+    {% empty %}
+        <p>No tasks posted yet.</p>
     {% endfor %}
 </div>
-{% else %}
-<p>You haven't posted any tasks yet.</p>
-{% endif %}
 
-<a href="/tasks/create/" class="btn btn-success">+ Create a New Task</a>
 {% endblock %}

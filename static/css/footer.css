@@ -1,0 +1,72 @@
+/* FOOTER */
+
+.footer {
+    background: var(--card);
+    padding: 40px 0 20px;
+    margin-top: 60px;
+    box-shadow: 0 -4px 12px var(--shadow);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.footer-section h4 {
+    color: var(--text);
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.footer-section a {
+    display: block;
+    color: var(--text);
+    opacity: 0.75;
+    margin-bottom: 6px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.footer-section a:hover {
+    opacity: 1;
+}
+
+.footer-logo {
+    width: 140px;
+    margin-bottom: 10px;
+}
+
+.footer-desc {
+    font-size: 0.95rem;
+    opacity: 0.7;
+}
+
+/* SOCIAL ICONS */
+.social-links a {
+    font-size: 1.4rem;
+    margin-right: 12px;
+    color: var(--primary);
+    transition: 0.2s ease;
+}
+
+.social-links a:hover {
+    opacity: 0.7;
+}
+
+/* COPYRIGHT BAR */
+.footer-bottom {
+    text-align: center;
+    margin-top: 25px;
+    padding: 10px;
+    border-top: 1px solid var(--shadow);
+    opacity: 0.6;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: var(--text);
+}
